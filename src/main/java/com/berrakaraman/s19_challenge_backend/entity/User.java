@@ -13,7 +13,7 @@ import java.util.*;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "app-user")
+@Table(name = "app_user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
