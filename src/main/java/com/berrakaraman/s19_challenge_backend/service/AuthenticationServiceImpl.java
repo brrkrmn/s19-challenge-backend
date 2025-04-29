@@ -25,7 +25,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User register(String username, String password) {
+    public User register(String username, String name, String email, String about, String password) {
         String encoded = passwordEncoder.encode(password);
 
         Role userRole = roleRepository.findByAuthority("USER").get();
@@ -34,6 +34,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         User user = new User();
         user.setUsername(username);
+        user.setName(name);
+        user.setEmail(email);
+        user.setAbout(about);
         user.setPassword(encoded);
         user.setAuthorities(authorities);
 

@@ -1,6 +1,9 @@
 package com.berrakaraman.s19_challenge_backend.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,18 +24,26 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "name")
+    @NotNull
+    @Size(min = 3, max = 30)
     private String name;
 
     @Column(name = "username")
+    @NotNull
+    @Size(min = 3, max = 15)
     private String username;
 
     @Column(name = "email")
+    @NotNull
+    @Email
     private String email;
 
     @Column(name = "about")
+    @Size(max = 100)
     private String about;
 
     @Column(name = "password")
+    @NotNull
     private String password;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
