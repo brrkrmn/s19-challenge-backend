@@ -23,8 +23,8 @@ public class User implements UserDetails {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "user_name")
-    private String userName;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "email")
     private String email;
@@ -57,6 +57,9 @@ public class User implements UserDetails {
     )
     private Set<Tweet> likes = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -72,7 +75,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
@@ -124,7 +127,7 @@ public class User implements UserDetails {
         return "\n----------- User " +
                 "\n id = " + id +
                 "\n name = " + name +
-                "\n userName = " + userName +
+                "\n userName = " + username +
                 "\n email = " + email +
                 "\n about = " + about +
                 "\n following = " + following +

@@ -1,0 +1,47 @@
+package com.berrakaraman.s19_challenge_backend.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "tweet")
+public class Tweet {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "content")
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToMany(mappedBy = "likes")
+    private Set<User> likedBy = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tweet")
+    private Set<Comment> comments = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Tweet tweet = (Tweet) o;
+        return Objects.equals(id, tweet.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+}
