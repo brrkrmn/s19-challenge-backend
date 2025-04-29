@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserSignupRequest {
+public class SignupRequest {
     private String username;
     private String name;
     private String email;

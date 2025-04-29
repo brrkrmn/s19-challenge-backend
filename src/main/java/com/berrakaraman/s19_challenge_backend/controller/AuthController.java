@@ -1,6 +1,7 @@
 package com.berrakaraman.s19_challenge_backend.controller;
 
-import com.berrakaraman.s19_challenge_backend.dto.UserSignupRequest;
+import com.berrakaraman.s19_challenge_backend.dto.LoginRequest;
+import com.berrakaraman.s19_challenge_backend.dto.SignupRequest;
 import com.berrakaraman.s19_challenge_backend.entity.User;
 import com.berrakaraman.s19_challenge_backend.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,17 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public User signup(@RequestBody UserSignupRequest userSignupRequest) {
+    public User signup(@RequestBody SignupRequest signupRequest) {
         return authenticationService.register(
-                userSignupRequest.getUsername(),
-                userSignupRequest.getName(),
-                userSignupRequest.getEmail(),
-                userSignupRequest.getAbout(),
-                userSignupRequest.getPassword());
+                signupRequest.getUsername(),
+                signupRequest.getName(),
+                signupRequest.getEmail(),
+                signupRequest.getAbout(),
+                signupRequest.getPassword());
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestBody LoginRequest loginRequest) {
+        return authenticationService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
     }
 }

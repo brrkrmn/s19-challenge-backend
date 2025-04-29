@@ -18,8 +18,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findUserByUsername(username)
-                .orElseThrow(() -> {
-                    return new UsernameNotFoundException("User credentials are not valid");
-                });
+                .orElseThrow(() -> new UsernameNotFoundException("User credentials are not valid"));
     }
 }
