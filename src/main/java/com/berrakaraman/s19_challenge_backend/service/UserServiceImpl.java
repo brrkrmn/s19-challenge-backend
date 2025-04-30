@@ -17,11 +17,13 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private AuthenticationService authenticationService;
+    private TweetService tweetService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, AuthenticationService authenticationService) {
+    public UserServiceImpl(UserRepository userRepository, AuthenticationService authenticationService, TweetService tweetService) {
         this.userRepository = userRepository;
         this.authenticationService = authenticationService;
+        this.tweetService = tweetService;
     }
 
     @Override
@@ -60,6 +62,19 @@ public class UserServiceImpl implements UserService {
             authUser.unfollow(targetUser);
         } else {
             authUser.follow(targetUser);
+        }
+
+        userRepository.save(authUser);
+    }
+
+    public void toggleLike(Long tweetId) {
+        User authUser = authenticationService.getAuthUser();
+        Tweet tweet = tweetService.findById(tweetId);
+
+        if (authUser.getLikes().contains(tweet)) {
+            authUser.unlike(tweet);
+        } else {
+            authUser.like(tweet);
         }
 
         userRepository.save(authUser);

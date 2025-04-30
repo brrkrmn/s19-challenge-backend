@@ -46,7 +46,7 @@ public class User implements UserDetails {
     @NotNull
     private String password;
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinTable(
             name = "user_following",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -54,7 +54,7 @@ public class User implements UserDetails {
     )
     private Set<User> following = new HashSet<>();
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "following")
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, mappedBy = "following")
     private Set<User> followers = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
