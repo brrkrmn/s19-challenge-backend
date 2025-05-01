@@ -5,6 +5,9 @@ import com.berrakaraman.s19_challenge_backend.entity.Tweet;
 import java.util.List;
 
 public interface TweetService {
-    List<Tweet> findAll();
-    Tweet findById(Long id);
+    List<Tweet> getAll();
+    Tweet getById(Long id);
+    Tweet create(String content);
+    Tweet update(Tweet tweet);
+    void delete(Long id);
 }
