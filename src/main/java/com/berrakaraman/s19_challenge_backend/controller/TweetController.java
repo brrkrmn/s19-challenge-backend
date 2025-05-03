@@ -36,6 +36,18 @@ public class TweetController {
         return tweetService.create(createTweetRequest.getContent());
     }
 
+    @PutMapping("/{id}")
+    public Tweet replaceOrCreate(@Positive @PathVariable Long id,
+                                 @Validated @RequestBody Tweet tweet) {
+        return tweetService.replaceOrCreate(id, tweet);
+    }
+
+    @PatchMapping("/{id}")
+    public Tweet update(@Positive @PathVariable Long id,
+                        @Validated @RequestBody Tweet tweet) {
+        return tweetService.update(id, tweet);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@Positive @PathVariable("id") Long id) {
