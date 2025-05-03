@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    List<User> findAll();
-    User findById(Long id);
-    User findByUsername(String username);
+    List<User> getAll();
+    User getById(Long id);
+    User getByUsername(String username);
     void toggleFollow(Long targetUserId);
     void toggleLike(Long tweetId);
 }
