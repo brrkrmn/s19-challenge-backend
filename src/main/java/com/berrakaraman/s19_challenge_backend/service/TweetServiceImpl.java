@@ -94,16 +94,21 @@ public class TweetServiceImpl implements TweetService {
             throw new UnauthorizedException("You cannot delete another user's tweet.");
         }
 
-        Set<User> usersWhoLikedTweet =  tweetRepository.getUsersWhoLikedTweet(id);
+        Set<User> usersWhoLiked =  tweetRepository.getUsersWhoLiked(id);
+        for (User user: usersWhoLiked) {
+            user.removeLike(tweet);
+        }
 
-        for (User user: usersWhoLikedTweet) {
-            user.unlike(tweet);
+        Set<User> usersWhoRetweeted =  tweetRepository.getUsersWhoRetweeted(id);
+        for (User user: usersWhoRetweeted) {
+            user.removeRetweet(tweet);
         }
 
         authUser.removeTweet(tweet);
 
         userRepository.save(authUser);
-        userRepository.saveAll(usersWhoLikedTweet);
+        userRepository.saveAll(usersWhoLiked);
+        userRepository.saveAll(usersWhoRetweeted);
         tweetRepository.delete(tweet);
     }
 
@@ -119,6 +124,23 @@ public class TweetServiceImpl implements TweetService {
         } else {
             authUser.addRetweet(tweet);
             tweet.addRetweetBy(authUser);
+        }
+
+        tweetRepository.save(tweet);
+        userRepository.save(authUser);
+    }
+
+    @Override
+    public void toggleLike(Long id) {
+        Tweet tweet = getById(id);
+        User authUser = authenticationService.getAuthUser();
+
+        if (authUser.getLikes().contains(tweet)) {
+            authUser.removeLike(tweet);
+            tweet.removeLikeBy(authUser);
+        } else {
+            authUser.addLike(tweet);
+            tweet.addLikeBy(authUser);
         }
 
         tweetRepository.save(tweet);

@@ -63,17 +63,4 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(authUser);
     }
-
-    public void toggleLike(Long tweetId) {
-        User authUser = authenticationService.getAuthUser();
-        Tweet tweet = tweetService.getById(tweetId);
-
-        if (authUser.getLikes().contains(tweet)) {
-            authUser.unlike(tweet);
-        } else {
-            authUser.like(tweet);
-        }
-
-        userRepository.save(authUser);
-    }
 }

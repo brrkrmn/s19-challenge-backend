@@ -133,11 +133,11 @@ public class User implements UserDetails {
         following.remove(user);
     }
 
-    public void like(Tweet tweet) {
+    public void addLike(Tweet tweet) {
         likes.add(tweet);
     }
 
-    public void unlike(Tweet tweet) {
+    public void removeLike(Tweet tweet) {
         likes.remove(tweet);
     }
 

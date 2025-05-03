@@ -12,4 +12,5 @@ public interface TweetService {
     Tweet update(Long id, Tweet tweet);
     void delete(Long id);
     void toggleRetweet(Long id);
+    void toggleLike(Long id);
 }

@@ -54,6 +54,11 @@ public class TweetController {
         tweetService.delete(id);
     }
 
+    @PostMapping("/{id}/like")
+    public void toggleLike(@Positive @PathVariable("id") Long id) {
+        tweetService.toggleLike(id);
+    }
+
     @PostMapping("/{id}/retweet")
     public void toggleRetweet(@Positive @PathVariable("id") Long id) {
         tweetService.toggleRetweet(id);

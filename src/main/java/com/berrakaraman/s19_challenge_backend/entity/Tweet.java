@@ -57,6 +57,14 @@ public class Tweet {
         retweetedBy.remove(user);
     }
 
+    public void addLikeBy(User user) {
+        likedBy.add(user);
+    }
+
+    public void removeLikeBy(User user) {
+        likedBy.remove(user);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

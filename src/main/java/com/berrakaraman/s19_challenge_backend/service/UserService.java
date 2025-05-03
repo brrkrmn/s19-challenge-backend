@@ -11,5 +11,4 @@ public interface UserService extends UserDetailsService {
     User getById(Long id);
     User getByUsername(String username);
     void toggleFollow(Long targetUserId);
-    void toggleLike(Long tweetId);
 }
