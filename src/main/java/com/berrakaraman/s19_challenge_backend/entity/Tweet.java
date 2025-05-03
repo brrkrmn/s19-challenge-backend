@@ -38,6 +38,14 @@ public class Tweet {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tweet")
     private Set<Comment> comments = new HashSet<>();
 
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

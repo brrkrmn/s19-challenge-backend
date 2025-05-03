@@ -133,6 +133,14 @@ public class User implements UserDetails {
         likes.remove(tweet);
     }
 
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+    }
+
     @Override
     public String toString() {
         return "\n----------- User " +
