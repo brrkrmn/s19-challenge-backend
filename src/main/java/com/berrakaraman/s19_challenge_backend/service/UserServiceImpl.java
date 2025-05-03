@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     public void toggleLike(Long tweetId) {
         User authUser = authenticationService.getAuthUser();
-        Tweet tweet = tweetService.findById(tweetId);
+        Tweet tweet = tweetService.getById(tweetId);
 
         if (authUser.getLikes().contains(tweet)) {
             authUser.unlike(tweet);

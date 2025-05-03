@@ -8,6 +8,7 @@ public interface TweetService {
     List<Tweet> getAll();
     Tweet getById(Long id);
     Tweet create(String content);
-    Tweet update(Tweet tweet);
+    Tweet replaceOrCreate(Long id, Tweet tweet);
+    Tweet update(Long id, Tweet tweet);
     void delete(Long id);
 }

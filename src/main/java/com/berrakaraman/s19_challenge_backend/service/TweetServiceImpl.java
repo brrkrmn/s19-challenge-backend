@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -50,9 +51,39 @@ public class TweetServiceImpl implements TweetService {
         return tweetRepository.save(tweet);
     }
 
+    @Transactional
     @Override
-    public Tweet update(Tweet tweet) {
-        return null;
+    public Tweet replaceOrCreate(Long id, Tweet tweet) {
+        User authUser = authenticationService.getAuthUser();
+        Tweet existingTweet = tweetRepository.findById(id).orElse(null);
+
+        if (existingTweet != null) {
+            if (!existingTweet.getUser().equals(authUser)) {
+                throw new UnauthorizedException("You cannot edit another user's tweet.");
+            }
+
+            tweet.setId(id);
+            return tweetRepository.save(tweet);
+        }
+
+        return create(tweet.getContent());
+    }
+
+    @Transactional
+    @Override
+    public Tweet update(Long id, Tweet tweet) {
+        User authUser = authenticationService.getAuthUser();
+        Tweet tweetToUpdate = getById(id);
+
+        if (!tweetToUpdate.getUser().equals(authUser)) {
+            throw new UnauthorizedException("You cannot edit another user's tweet.");
+        }
+
+        if (tweet.getContent() != null) {
+            tweetToUpdate.setContent(tweet.getContent());
+        }
+
+        return tweetRepository.save(tweetToUpdate);
     }
 
     @Transactional
