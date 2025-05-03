@@ -7,6 +7,7 @@ import com.berrakaraman.s19_challenge_backend.exception.NotFoundException;
 import com.berrakaraman.s19_challenge_backend.exception.UnauthenticatedException;
 import com.berrakaraman.s19_challenge_backend.repository.RoleRepository;
 import com.berrakaraman.s19_challenge_backend.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,17 +19,14 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
-
     @Autowired
-    public AuthenticationServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final UserRepository userRepository;
+    @Autowired
+    private final RoleRepository roleRepository;
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User register(String username, String name, String email, String about, String password) {

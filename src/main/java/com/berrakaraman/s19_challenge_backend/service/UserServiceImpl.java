@@ -5,6 +5,7 @@ import com.berrakaraman.s19_challenge_backend.entity.User;
 import com.berrakaraman.s19_challenge_backend.exception.BadRequestException;
 import com.berrakaraman.s19_challenge_backend.exception.NotFoundException;
 import com.berrakaraman.s19_challenge_backend.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,17 +15,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
-    private AuthenticationService authenticationService;
-    private TweetService tweetService;
-
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, AuthenticationService authenticationService, TweetService tweetService) {
-        this.userRepository = userRepository;
-        this.authenticationService = authenticationService;
-        this.tweetService = tweetService;
-    }
+    private final UserRepository userRepository;
+    @Autowired
+    private final AuthenticationService authenticationService;
+    @Autowired
+    private final TweetService tweetService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -7,6 +7,7 @@ import com.berrakaraman.s19_challenge_backend.exception.UnauthorizedException;
 import com.berrakaraman.s19_challenge_backend.repository.TweetRepository;
 import com.berrakaraman.s19_challenge_backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +16,14 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class TweetServiceImpl implements TweetService {
-    private TweetRepository tweetRepository;
-    private UserRepository userRepository;
-    private AuthenticationService authenticationService;
-
     @Autowired
-    public TweetServiceImpl(TweetRepository tweetRepository, AuthenticationService authenticationService, UserRepository userRepository) {
-        this.tweetRepository = tweetRepository;
-        this.authenticationService = authenticationService;
-        this.userRepository = userRepository;
-    }
+    private final TweetRepository tweetRepository;
+    @Autowired
+    private final UserRepository userRepository;
+    @Autowired
+    private final AuthenticationService authenticationService;
 
     @Override
     public List<Tweet> getAll() {
