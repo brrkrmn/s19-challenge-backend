@@ -38,12 +38,23 @@ public class Tweet {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tweet")
     private Set<Comment> comments = new HashSet<>();
 
+    @ManyToMany(mappedBy = "retweets")
+    private Set<User> retweetedBy = new HashSet<>();
+
     public void addComment(Comment comment) {
         comments.add(comment);
     }
 
     public void removeComment(Comment comment) {
         comments.remove(comment);
+    }
+
+    public void addRetweetBy(User user) {
+        retweetedBy.add(user);
+    }
+
+    public void removeRetweetBy(User user) {
+        retweetedBy.remove(user);
     }
 
     @Override

@@ -71,6 +71,14 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Comment> comments = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_retweets",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tweet_id")
+    )
+    private Set<Tweet> retweets = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -131,6 +139,14 @@ public class User implements UserDetails {
 
     public void unlike(Tweet tweet) {
         likes.remove(tweet);
+    }
+
+    public void addRetweet(Tweet tweet) {
+        retweets.add(tweet);
+    }
+
+    public void removeRetweet(Tweet tweet) {
+        retweets.remove(tweet);
     }
 
     public void addComment(Comment comment) {

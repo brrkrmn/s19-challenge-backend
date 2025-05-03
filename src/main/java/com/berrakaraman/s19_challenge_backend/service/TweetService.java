@@ -11,4 +11,5 @@ public interface TweetService {
     Tweet replaceOrCreate(Long id, Tweet tweet);
     Tweet update(Long id, Tweet tweet);
     void delete(Long id);
+    void toggleRetweet(Long id);
 }

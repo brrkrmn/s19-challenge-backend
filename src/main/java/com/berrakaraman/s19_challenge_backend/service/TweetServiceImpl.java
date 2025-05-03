@@ -106,4 +106,22 @@ public class TweetServiceImpl implements TweetService {
         userRepository.saveAll(usersWhoLikedTweet);
         tweetRepository.delete(tweet);
     }
+
+    @Transactional
+    @Override
+    public void toggleRetweet(Long id) {
+        Tweet tweet = getById(id);
+        User authUser = authenticationService.getAuthUser();
+
+        if (authUser.getRetweets().contains(tweet)) {
+            authUser.removeRetweet(tweet);
+            tweet.removeRetweetBy(authUser);
+        } else {
+            authUser.addRetweet(tweet);
+            tweet.addRetweetBy(authUser);
+        }
+
+        tweetRepository.save(tweet);
+        userRepository.save(authUser);
+    }
 }

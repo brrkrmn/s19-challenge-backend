@@ -53,4 +53,9 @@ public class TweetController {
     public void delete(@Positive @PathVariable("id") Long id) {
         tweetService.delete(id);
     }
+
+    @PostMapping("/{id}/retweet")
+    public void toggleRetweet(@Positive @PathVariable("id") Long id) {
+        tweetService.toggleRetweet(id);
+    }
 }
