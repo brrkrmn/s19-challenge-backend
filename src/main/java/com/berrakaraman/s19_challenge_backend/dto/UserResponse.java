@@ -10,5 +10,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public record UserResponse(Long id, String name, String username, String about, Set<User> following, Set<User> followers, List<Tweet> tweets, Set<Tweet> likes, Set<Tweet> retweets, Set<Comment> comments, Collection<? extends GrantedAuthority> authorities) {
-}
+public record UserResponse(
+        Long id,
+        String name,
+        String username,
+        String about,
+        Set<UserPreview> following,
+        Set<UserPreview> followers,
+        List<Tweet> tweets,
+        Set<Tweet> likes,
+        Set<Tweet> retweets,
+        Set<Comment> comments,
+        Collection<? extends GrantedAuthority> authorities
+) {}
