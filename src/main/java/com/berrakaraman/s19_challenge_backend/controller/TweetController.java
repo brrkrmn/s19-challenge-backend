@@ -1,8 +1,10 @@
 package com.berrakaraman.s19_challenge_backend.controller;
 
 import com.berrakaraman.s19_challenge_backend.dto.CreateTweetRequest;
+import com.berrakaraman.s19_challenge_backend.dto.TweetResponse;
 import com.berrakaraman.s19_challenge_backend.entity.Tweet;
 import com.berrakaraman.s19_challenge_backend.service.TweetService;
+import com.berrakaraman.s19_challenge_backend.util.TweetMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -21,19 +23,19 @@ public class TweetController {
     private final TweetService tweetService;
 
     @GetMapping
-    public List<Tweet> getAll() {
-        return tweetService.getAll();
+    public List<TweetResponse> getAll() {
+        return tweetService.getAll().stream().map(TweetMapper::toTweetResponse).toList();
     }
 
     @GetMapping("/{id}")
-    public Tweet getById(@Positive @PathVariable("id") Long id) {
-        return tweetService.getById(id);
+    public TweetResponse getById(@Positive @PathVariable("id") Long id) {
+        return TweetMapper.toTweetResponse(tweetService.getById(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Tweet create(@Validated @RequestBody CreateTweetRequest createTweetRequest) {
-        return tweetService.create(createTweetRequest.getContent());
+    public TweetResponse create(@Validated @RequestBody CreateTweetRequest createTweetRequest) {
+        return TweetMapper.toTweetResponse(tweetService.create(createTweetRequest.getContent()));
     }
 
     @PutMapping("/{id}")

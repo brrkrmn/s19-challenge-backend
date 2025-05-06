@@ -16,9 +16,9 @@ public class UserMapper {
                 user.getAbout(),
                 toUserPreviewSet(user.getFollowing()),
                 toUserPreviewSet(user.getFollowers()),
-                user.getTweets(),
-                user.getLikes(),
-                user.getRetweets(),
+                TweetMapper.toTweetResponseList(user.getTweets()),
+                TweetMapper.toTweetResponseSet(user.getLikes().stream().toList()),
+                TweetMapper.toTweetResponseSet(user.getRetweets().stream().toList()),
                 user.getComments(),
                 user.getAuthorities()
         );

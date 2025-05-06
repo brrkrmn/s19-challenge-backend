@@ -17,9 +17,9 @@ public record UserResponse(
         String about,
         Set<UserPreview> following,
         Set<UserPreview> followers,
-        List<Tweet> tweets,
-        Set<Tweet> likes,
-        Set<Tweet> retweets,
+        List<TweetResponse> tweets,
+        Set<TweetResponse> likes,
+        Set<TweetResponse> retweets,
         Set<Comment> comments,
         Collection<? extends GrantedAuthority> authorities
 ) {}
