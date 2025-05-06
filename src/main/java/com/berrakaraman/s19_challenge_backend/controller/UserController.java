@@ -1,7 +1,9 @@
 package com.berrakaraman.s19_challenge_backend.controller;
 
+import com.berrakaraman.s19_challenge_backend.dto.UserResponse;
 import com.berrakaraman.s19_challenge_backend.entity.User;
 import com.berrakaraman.s19_challenge_backend.service.UserService;
+import com.berrakaraman.s19_challenge_backend.util.UserMapper;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +19,13 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<User> getAll() {
-        return userService.getAll();
+    public List<UserResponse> getAll() {
+        return userService.getAll().stream().map(UserMapper::toUserResponse).toList();
     }
 
     @GetMapping("/{id}")
-    public User getById(@Positive @PathVariable("id") Long id) {
-        return userService.getById(id);
+    public UserResponse getById(@Positive @PathVariable("id") Long id) {
+        return UserMapper.toUserResponse(userService.getById(id));
     }
 
     @PostMapping("/{id}/follow")

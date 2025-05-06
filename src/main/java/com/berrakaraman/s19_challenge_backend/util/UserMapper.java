@@ -15,6 +15,7 @@ public class UserMapper {
                 user.getTweets(),
                 user.getLikes(),
                 user.getRetweets(),
+                user.getComments(),
                 user.getAuthorities()
         );
     }
