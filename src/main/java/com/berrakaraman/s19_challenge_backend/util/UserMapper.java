@@ -19,7 +19,7 @@ public class UserMapper {
                 TweetMapper.toTweetResponseList(user.getTweets()),
                 TweetMapper.toTweetResponseSet(user.getLikes().stream().toList()),
                 TweetMapper.toTweetResponseSet(user.getRetweets().stream().toList()),
-                user.getComments(),
+                CommentMapper.toCommentResponseSet(user.getComments()),
                 user.getAuthorities()
         );
     }

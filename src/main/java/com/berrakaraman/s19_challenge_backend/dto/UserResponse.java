@@ -20,6 +20,6 @@ public record UserResponse(
         List<TweetResponse> tweets,
         Set<TweetResponse> likes,
         Set<TweetResponse> retweets,
-        Set<Comment> comments,
+        Set<CommentResponse> comments,
         Collection<? extends GrantedAuthority> authorities
 ) {}

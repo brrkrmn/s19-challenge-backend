@@ -9,6 +9,6 @@ public record TweetResponse(
     String content,
     UserPreview user,
     Set<UserPreview> likedBy,
-    Set<Comment> comments,
+    Set<CommentResponse> comments,
     Set<UserPreview> retweetedBy
 ) {}

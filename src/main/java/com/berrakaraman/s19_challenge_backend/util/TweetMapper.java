@@ -2,7 +2,6 @@ package com.berrakaraman.s19_challenge_backend.util;
 
 import com.berrakaraman.s19_challenge_backend.dto.TweetResponse;
 import com.berrakaraman.s19_challenge_backend.entity.Tweet;
-import com.berrakaraman.s19_challenge_backend.entity.User;
 
 import java.util.List;
 import java.util.Set;
@@ -15,7 +14,7 @@ public class TweetMapper {
                 tweet.getContent(),
                 UserMapper.toUserPreview(tweet.getUser()),
                 UserMapper.toUserPreviewSet(tweet.getLikedBy()),
-                tweet.getComments(),
+                CommentMapper.toCommentResponseSet(tweet.getComments()),
                 UserMapper.toUserPreviewSet(tweet.getRetweetedBy())
         );
     }
