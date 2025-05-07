@@ -1,7 +1,6 @@
 package com.berrakaraman.s19_challenge_backend.controller;
 
 import com.berrakaraman.s19_challenge_backend.dto.UserResponse;
-import com.berrakaraman.s19_challenge_backend.entity.User;
 import com.berrakaraman.s19_challenge_backend.service.UserService;
 import com.berrakaraman.s19_challenge_backend.util.UserMapper;
 import jakarta.validation.constraints.Positive;

@@ -2,9 +2,7 @@ package com.berrakaraman.s19_challenge_backend.controller;
 
 import com.berrakaraman.s19_challenge_backend.dto.CommentRequest;
 import com.berrakaraman.s19_challenge_backend.dto.CommentResponse;
-import com.berrakaraman.s19_challenge_backend.entity.Comment;
 import com.berrakaraman.s19_challenge_backend.service.CommentService;
-import com.berrakaraman.s19_challenge_backend.service.TweetService;
 import com.berrakaraman.s19_challenge_backend.util.CommentMapper;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;

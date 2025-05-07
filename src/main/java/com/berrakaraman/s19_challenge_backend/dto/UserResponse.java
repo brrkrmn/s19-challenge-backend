@@ -1,9 +1,5 @@
 package com.berrakaraman.s19_challenge_backend.dto;
 
-import com.berrakaraman.s19_challenge_backend.entity.Comment;
-import com.berrakaraman.s19_challenge_backend.entity.Role;
-import com.berrakaraman.s19_challenge_backend.entity.Tweet;
-import com.berrakaraman.s19_challenge_backend.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;

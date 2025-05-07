@@ -1,7 +1,5 @@
 package com.berrakaraman.s19_challenge_backend.dto;
 
-import com.berrakaraman.s19_challenge_backend.entity.Comment;
-
 import java.util.Set;
 
 public record TweetResponse(
