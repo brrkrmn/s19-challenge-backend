@@ -1,10 +1,10 @@
 package com.berrakaraman.s19_challenge_backend.service;
 
-import com.berrakaraman.s19_challenge_backend.entity.Tweet;
 import com.berrakaraman.s19_challenge_backend.entity.User;
 import com.berrakaraman.s19_challenge_backend.exception.BadRequestException;
 import com.berrakaraman.s19_challenge_backend.exception.NotFoundException;
 import com.berrakaraman.s19_challenge_backend.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void toggleFollow(Long targetUserId) {
         User authUser = authenticationService.getAuthUser();
         User targetUser = getById(targetUserId);

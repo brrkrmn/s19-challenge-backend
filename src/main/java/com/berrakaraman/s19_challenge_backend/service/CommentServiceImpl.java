@@ -6,6 +6,7 @@ import com.berrakaraman.s19_challenge_backend.entity.User;
 import com.berrakaraman.s19_challenge_backend.exception.NotFoundException;
 import com.berrakaraman.s19_challenge_backend.exception.UnauthorizedException;
 import com.berrakaraman.s19_challenge_backend.repository.CommentRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public Comment create(Long tweetId, String content) {
         User authUser = authenticationService.getAuthUser();
         Tweet tweet = tweetService.getById(tweetId);
@@ -50,6 +52,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public Comment update(Long id, String content) {
         User authUser = authenticationService.getAuthUser();
         Comment comment = getById(id);
@@ -63,6 +66,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public void deleteComment(Long id) {
         Comment comment = getById(id);
         User authUser = authenticationService.getAuthUser();

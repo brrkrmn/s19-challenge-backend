@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,8 +35,8 @@ public class TweetServiceImpl implements TweetService {
                 .orElseThrow(() -> new NotFoundException("Tweet could not be found with id: " + id));
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Tweet create(String content) {
         User authUser = authenticationService.getAuthUser();
 
@@ -49,8 +48,8 @@ public class TweetServiceImpl implements TweetService {
         return tweetRepository.save(tweet);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Tweet replaceOrCreate(Long id, String content) {
         User authUser = authenticationService.getAuthUser();
         Tweet existingTweet = tweetRepository.findById(id).orElse(null);
@@ -68,8 +67,8 @@ public class TweetServiceImpl implements TweetService {
         return create(content);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Tweet update(Long id, String content) {
         User authUser = authenticationService.getAuthUser();
         Tweet tweetToUpdate = getById(id);
@@ -85,8 +84,8 @@ public class TweetServiceImpl implements TweetService {
         return tweetRepository.save(tweetToUpdate);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void delete(Long id) {
         User authUser = authenticationService.getAuthUser();
         Tweet tweet = getById(id);
@@ -113,8 +112,8 @@ public class TweetServiceImpl implements TweetService {
         tweetRepository.delete(tweet);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public Tweet toggleRetweet(Long id) {
         Tweet tweet = getById(id);
         User authUser = authenticationService.getAuthUser();
@@ -132,6 +131,7 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
+    @Transactional
     public Tweet toggleLike(Long id) {
         Tweet tweet = getById(id);
         User authUser = authenticationService.getAuthUser();
