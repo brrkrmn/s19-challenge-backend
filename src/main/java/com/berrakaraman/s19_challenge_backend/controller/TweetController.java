@@ -1,11 +1,9 @@
 package com.berrakaraman.s19_challenge_backend.controller;
 
-import com.berrakaraman.s19_challenge_backend.dto.CreateTweetRequest;
+import com.berrakaraman.s19_challenge_backend.dto.TweetRequest;
 import com.berrakaraman.s19_challenge_backend.dto.TweetResponse;
-import com.berrakaraman.s19_challenge_backend.entity.Tweet;
 import com.berrakaraman.s19_challenge_backend.service.TweetService;
 import com.berrakaraman.s19_challenge_backend.util.TweetMapper;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +32,20 @@ public class TweetController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TweetResponse create(@Validated @RequestBody CreateTweetRequest createTweetRequest) {
-        return TweetMapper.toTweetResponse(tweetService.create(createTweetRequest.getContent()));
+    public TweetResponse create(@Validated @RequestBody TweetRequest tweetRequest) {
+        return TweetMapper.toTweetResponse(tweetService.create(tweetRequest.getContent()));
     }
 
     @PutMapping("/{id}")
-    public Tweet replaceOrCreate(@Positive @PathVariable Long id,
-                                 @Validated @RequestBody Tweet tweet) {
-        return tweetService.replaceOrCreate(id, tweet);
+    public TweetResponse replaceOrCreate(@Positive @PathVariable Long id,
+                                 @Validated @RequestBody TweetRequest tweetRequest) {
+        return TweetMapper.toTweetResponse(tweetService.replaceOrCreate(id, tweetRequest.getContent()));
     }
 
     @PatchMapping("/{id}")
-    public Tweet update(@Positive @PathVariable Long id,
-                        @Validated @RequestBody Tweet tweet) {
-        return tweetService.update(id, tweet);
+    public TweetResponse update(@Positive @PathVariable Long id,
+                        @Validated @RequestBody TweetRequest tweetRequest) {
+        return TweetMapper.toTweetResponse(tweetService.update(id, tweetRequest.getContent()));
     }
 
     @DeleteMapping("/{id}")
@@ -57,12 +55,12 @@ public class TweetController {
     }
 
     @PostMapping("/{id}/like")
-    public void toggleLike(@Positive @PathVariable("id") Long id) {
-        tweetService.toggleLike(id);
+    public TweetResponse toggleLike(@Positive @PathVariable("id") Long id) {
+        return TweetMapper.toTweetResponse(tweetService.toggleLike(id));
     }
 
     @PostMapping("/{id}/retweet")
-    public void toggleRetweet(@Positive @PathVariable("id") Long id) {
-        tweetService.toggleRetweet(id);
+    public TweetResponse toggleRetweet(@Positive @PathVariable("id") Long id) {
+        return TweetMapper.toTweetResponse(tweetService.toggleRetweet(id));
     }
 }

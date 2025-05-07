@@ -164,12 +164,7 @@ public class User implements UserDetails {
                 "\n name = " + name +
                 "\n userName = " + username +
                 "\n email = " + email +
-                "\n about = " + about +
-                "\n following = " + following +
-                "\n followers = " + followers +
-                "\n tweets = " + tweets +
-                "\n likes = " + likes;
-    }
+                "\n about = " + about;}
 
     @Override
     public boolean equals(Object o) {

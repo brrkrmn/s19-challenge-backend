@@ -51,7 +51,7 @@ public class TweetServiceImpl implements TweetService {
 
     @Transactional
     @Override
-    public Tweet replaceOrCreate(Long id, Tweet tweet) {
+    public Tweet replaceOrCreate(Long id, String content) {
         User authUser = authenticationService.getAuthUser();
         Tweet existingTweet = tweetRepository.findById(id).orElse(null);
 
@@ -60,16 +60,17 @@ public class TweetServiceImpl implements TweetService {
                 throw new UnauthorizedException("You cannot edit another user's tweet.");
             }
 
-            tweet.setId(id);
-            return tweetRepository.save(tweet);
+            existingTweet.setId(id);
+            existingTweet.setContent(content);
+            return tweetRepository.save(existingTweet);
         }
 
-        return create(tweet.getContent());
+        return create(content);
     }
 
     @Transactional
     @Override
-    public Tweet update(Long id, Tweet tweet) {
+    public Tweet update(Long id, String content) {
         User authUser = authenticationService.getAuthUser();
         Tweet tweetToUpdate = getById(id);
 
@@ -77,8 +78,8 @@ public class TweetServiceImpl implements TweetService {
             throw new UnauthorizedException("You cannot edit another user's tweet.");
         }
 
-        if (tweet.getContent() != null) {
-            tweetToUpdate.setContent(tweet.getContent());
+        if (content != null) {
+            tweetToUpdate.setContent(content);
         }
 
         return tweetRepository.save(tweetToUpdate);
@@ -114,7 +115,7 @@ public class TweetServiceImpl implements TweetService {
 
     @Transactional
     @Override
-    public void toggleRetweet(Long id) {
+    public Tweet toggleRetweet(Long id) {
         Tweet tweet = getById(id);
         User authUser = authenticationService.getAuthUser();
 
@@ -126,12 +127,12 @@ public class TweetServiceImpl implements TweetService {
             tweet.addRetweetBy(authUser);
         }
 
-        tweetRepository.save(tweet);
         userRepository.save(authUser);
+        return tweetRepository.save(tweet);
     }
 
     @Override
-    public void toggleLike(Long id) {
+    public Tweet toggleLike(Long id) {
         Tweet tweet = getById(id);
         User authUser = authenticationService.getAuthUser();
 
@@ -143,7 +144,7 @@ public class TweetServiceImpl implements TweetService {
             tweet.addLikeBy(authUser);
         }
 
-        tweetRepository.save(tweet);
         userRepository.save(authUser);
+        return tweetRepository.save(tweet);
     }
 }

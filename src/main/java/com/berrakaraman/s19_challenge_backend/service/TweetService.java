@@ -8,9 +8,9 @@ public interface TweetService {
     List<Tweet> getAll();
     Tweet getById(Long id);
     Tweet create(String content);
-    Tweet replaceOrCreate(Long id, Tweet tweet);
-    Tweet update(Long id, Tweet tweet);
+    Tweet replaceOrCreate(Long id, String content);
+    Tweet update(Long id, String content);
     void delete(Long id);
-    void toggleRetweet(Long id);
-    void toggleLike(Long id);
+    Tweet toggleRetweet(Long id);
+    Tweet toggleLike(Long id);
 }
