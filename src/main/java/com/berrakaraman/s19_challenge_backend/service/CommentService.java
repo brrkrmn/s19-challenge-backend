@@ -7,7 +7,7 @@ import java.util.List;
 public interface CommentService {
     List<Comment> getAll();
     Comment getById(Long id);
-    Comment create(Long tweetId, Comment comment);
-    Comment update(Long id, Comment comment);
+    Comment create(Long tweetId, String content);
+    Comment update(Long id, String content);
     void deleteComment(Long id);
 }

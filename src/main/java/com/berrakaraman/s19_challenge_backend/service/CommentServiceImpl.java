@@ -35,12 +35,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment create(Long tweetId, Comment comment) {
+    public Comment create(Long tweetId, String content) {
         User authUser = authenticationService.getAuthUser();
         Tweet tweet = tweetService.getById(tweetId);
 
+        Comment comment = new Comment();
         comment.setUser(authUser);
         comment.setTweet(tweet);
+        comment.setContent(content);
         authUser.addComment(comment);
         tweet.addComment(comment);
 
@@ -48,13 +50,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment update(Long id, Comment comment) {
+    public Comment update(Long id, String content) {
         User authUser = authenticationService.getAuthUser();
+        Comment comment = getById(id);
 
         if (!authUser.equals(comment.getUser())) {
             throw new UnauthorizedException("You are not allowed to edit this comment.");
         }
 
+        comment.setContent(content);
         return commentRepository.save(comment);
     }
 

@@ -1,8 +1,11 @@
 package com.berrakaraman.s19_challenge_backend.controller;
 
+import com.berrakaraman.s19_challenge_backend.dto.CommentRequest;
+import com.berrakaraman.s19_challenge_backend.dto.CommentResponse;
 import com.berrakaraman.s19_challenge_backend.entity.Comment;
 import com.berrakaraman.s19_challenge_backend.service.CommentService;
 import com.berrakaraman.s19_challenge_backend.service.TweetService;
+import com.berrakaraman.s19_challenge_backend.util.CommentMapper;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,33 +16,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/comments")
 @AllArgsConstructor
 public class CommentController {
     @Autowired
     private final CommentService commentService;
 
     @GetMapping
-    public List<Comment> getAll() {
-        return commentService.getAll();
+    public List<CommentResponse> getAll() {
+        return CommentMapper.toCommentResponseList(commentService.getAll());
     }
 
     @GetMapping("/{id}")
-    public Comment getById(@Positive @PathVariable Long id) {
-        return commentService.getById(id);
+    public CommentResponse getById(@Positive @PathVariable("id") Long id) {
+        return CommentMapper.toCommentResponse(commentService.getById(id));
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{tweetId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Comment create(@Positive @PathVariable Long tweetId,
-                          @Validated @RequestBody Comment comment) {
-        return commentService.create(tweetId, comment);
+    public CommentResponse create(@Positive @PathVariable("tweetId") Long tweetId,
+                          @Validated @RequestBody CommentRequest commentRequest) {
+        return CommentMapper.toCommentResponse(commentService.create(tweetId, commentRequest.getContent()));
     }
 
     @PutMapping("/{id}")
-    public Comment update(@Positive @PathVariable Long id,
-                          @Validated @RequestBody Comment comment) {
-        return commentService.update(id, comment);
+    public CommentResponse update(@Positive @PathVariable("id") Long id,
+                          @Validated @RequestBody CommentRequest commentRequest) {
+        return CommentMapper.toCommentResponse(commentService.update(id, commentRequest.getContent()));
     }
 
     @DeleteMapping("/{id}")
