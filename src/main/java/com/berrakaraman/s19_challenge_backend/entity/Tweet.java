@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "tweet")
+@ToString(onlyExplicitlyIncluded = true)
 public class Tweet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

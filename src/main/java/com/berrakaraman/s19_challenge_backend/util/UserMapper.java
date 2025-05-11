@@ -13,6 +13,7 @@ public class UserMapper {
                 user.getId(),
                 user.getName(),
                 user.getUsername(),
+                user.getPassword(),
                 user.getAbout(),
                 toUserPreviewSet(user.getFollowing()),
                 toUserPreviewSet(user.getFollowers()),
