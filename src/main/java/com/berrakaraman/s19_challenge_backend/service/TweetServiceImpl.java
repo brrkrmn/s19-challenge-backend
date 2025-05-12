@@ -105,10 +105,6 @@ public class TweetServiceImpl implements TweetService {
         }
 
         authUser.removeTweet(tweet);
-
-        userRepository.save(authUser);
-        userRepository.saveAll(usersWhoLiked);
-        userRepository.saveAll(usersWhoRetweeted);
         tweetRepository.delete(tweet);
     }
 
@@ -126,7 +122,6 @@ public class TweetServiceImpl implements TweetService {
             tweet.addRetweetBy(authUser);
         }
 
-        userRepository.save(authUser);
         return tweetRepository.save(tweet);
     }
 
@@ -144,7 +139,6 @@ public class TweetServiceImpl implements TweetService {
             tweet.addLikeBy(authUser);
         }
 
-        userRepository.save(authUser);
         return tweetRepository.save(tweet);
     }
 }
