@@ -29,7 +29,8 @@ public class UserMapper {
         return new UserPreview(
                 user.getId(),
                 user.getName(),
-                user.getUsername()
+                user.getUsername(),
+                user.getAbout()
         );
     }
 

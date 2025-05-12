@@ -13,7 +13,8 @@ public class CommentMapper {
                 comment.getId(),
                 comment.getContent(),
                 comment.getTweet().getId(),
-                comment.getUser().getId()
+                comment.getUser().getId(),
+                comment.getUser().getUsername()
         );
     }
 
